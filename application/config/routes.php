@@ -56,5 +56,6 @@ $route['translate_uri_dashes'] = FALSE;
 /* Rotas de API - Usuarios */
 $route['users/create'] = 'UserController/create';
 $route['users/(:num)'] = 'UserController/read/$1';
+$route['users'] = 'UserController/read';
 $route['users/(:num)/update'] = 'UserController/update/$1';
 $route['users/(:num)/delete'] = 'UserController/delete/$1';
