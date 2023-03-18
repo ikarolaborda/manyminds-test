@@ -17,7 +17,7 @@ class UserController extends CI_Controller {
 
 		if (!$this->form_validation->run()) {
 			$errors = validation_errors();
-			$response = array('status' => 'error', 'message' => 'A Validação falhou: '.$errors);
+			$response = array('status' => 'error', 'message' => 'A Validação falhou: '.json_encode($errors));
 		} else {
 			$data = json_decode(file_get_contents('php://input'), true);
 			$data['ip_address'] = $_SERVER['REMOTE_ADDR'];
@@ -27,8 +27,8 @@ class UserController extends CI_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode($response));
 	}
 
-	public function read($id) {
-		$data = $this->userModel->read($id);
+	public function read(?int $id = null) {
+		$data = $this->User->read($id ?? null);
 		if ($data) {
 			$response = array('status' => 'success', 'data' => $data);
 		} else {
@@ -37,23 +37,23 @@ class UserController extends CI_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode($response));
 	}
 
-	public function update($id) {
+	public function update(int $id) {
 		$data = json_decode(file_get_contents('php://input'), true);
-		$success = $this->userModel->update($id, $data);
+		$success = $this->User->update($id, $data);
 		if ($success) {
 			$response = array('status' => 'success', 'message' => 'User updated successfully.');
 		} else {
-			$response = array('status' => 'error', 'message' => 'User not found.');
+			$response = array('status' => 'error', 'message' => 'Usuario não encontrado.');
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($response));
 	}
 
 	public function delete($id) {
-		$success = $this->userModel->delete($id);
+		$success = $this->User->delete($id);
 		if ($success) {
-			$response = array('status' => 'success', 'message' => 'User deleted successfully.');
+			$response = array('status' => 'success', 'message' => 'Usuario deletado com sucesso.');
 		} else {
-			$response = array('status' => 'error', 'message' => 'User not found.');
+			$response = array('status' => 'error', 'message' => 'Usuario não encontrado.');
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($response));
 	}
