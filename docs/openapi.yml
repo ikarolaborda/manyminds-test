@@ -1,0 +1,252 @@
+openapi: 3.0.0
+info:
+  title: Manyminds Test API
+  version: 1.0.0
+servers:
+  - url: http://localhost/api/v1
+paths:
+  /user/register:
+    post:
+      summary: Registers a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - name
+                - email
+                - password
+      responses:
+        '200':
+          description: Successfully registered a new user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /user/login:
+    post:
+      summary: Authenticates a user and returns a token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      responses:
+        '200':
+          description: Successfully authenticated a user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  token:
+                    type: string
+  /employees:
+    get:
+      summary: Retrieves all employees
+      responses:
+        '200':
+          description: Successfully retrieved all employees
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+    post:
+      summary: Creates a new employee
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+      responses:
+        '200':
+          description: Successfully created a new employee
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+  /{id}:
+      get:
+        summary: Retrieves an employee by ID
+        parameters:
+          - in: path
+            name: id
+            schema:
+              type: integer
+            required: true
+            description: Numeric ID of the employee to retrieve
+        responses:
+          '200':
+            description: Successfully retrieved the specified employee
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Employee'
+      put:
+        summary: Updates an employee by ID
+        parameters:
+          - in: path
+            name: id
+            schema:
+              type: integer
+            required: true
+            description: Numeric ID of the employee to update
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        responses:
+          '200':
+            description: Successfully updated the specified employee
+      delete:
+        summary: Deletes an employee by ID
+        parameters:
+          - in: path
+            name: id
+            schema:
+              type: integer
+            required: true
+            description: Numeric ID of the employee to delete
+        responses:
+          '200':
+            description: Successfully deleted the specified employee
+  /departments:
+    get:
+      summary: Retrieves all departments
+      responses:
+        '200':
+          description: Successfully retrieved all departments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Department'
+    post:
+      summary: Creates a new department
+      requestBody:
+        required: true
+        content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Department'
+      responses:
+        '200':
+          description: Successfully created a new department
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Department'
+  /departments/{id}:
+    get:
+      summary: Retrieves a department by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+              type: integer
+              required: true
+              description: Numeric ID of the department to retrieve
+      responses:
+              '200':
+                description: Successfully retrieved the specified department
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/Department'
+    put:
+      summary: Updates a department by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+              type: integer
+              required: true
+              description: Numeric ID of the department to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Department'
+      responses:
+                  '200':
+                    description: Successfully updated the specified department
+    delete:
+      summary: Deletes a department by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+            required: true
+            description: Numeric ID of the department to delete
+      responses:
+        '200':
+          description: Successfully deleted the specified department
+
+components:
+  schemas:
+    Employee:
+      type: object
+      properties:
+          id:
+            type: integer
+          employee_number:
+            type: string
+          name:
+            type: string
+          department_id:
+            type: integer
+          department_name:
+            type: string
+          employee_CPF:
+            type: string
+          employee_status:
+            type: string
+          user_id:
+            type: integer
+      required:
+              - employee_number
+              - name
+              - department_id
+              - employee_CPF
+              - employee_status
+              - user_id
+    Department:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+            required:
+              - name
