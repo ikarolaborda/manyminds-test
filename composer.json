@@ -13,8 +13,10 @@
 	"require": {
 		"php": ">=7.4",
 		"ext-json": "*",
-		"ext-pdo": "*"
+		"ext-pdo": "*",
+		"zircote/swagger-php": "^4.7"
 	},
+
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
 	},
