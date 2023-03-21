@@ -1,10 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+
+require_once APPPATH.'libraries/UserRepository.php';
 class UserController extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->model('User');
+		$this->load->model('UserModel',['repository' => new UserRepository()]);
 	}
 
 	public function create() {
@@ -21,8 +23,8 @@ class UserController extends CI_Controller {
 		} else {
 			$data = json_decode(file_get_contents('php://input'), true);
 			$data['ip_address'] = $_SERVER['REMOTE_ADDR'];
-			$id = $this->User->create($data);
-			$response = array('status' => 'success', 'message' => 'Usuario criado com sucesso.', 'data' => array('id' => $id));
+			$id = $this->UserModel->create($data);
+			$response = array('status' => 'sucesso', 'message' => 'Usuario criado com sucesso.', 'data' => array('id' => $id));
 		}
 		$this->output->set_content_type('application/json')->set_output(json_encode($response));
 	}
