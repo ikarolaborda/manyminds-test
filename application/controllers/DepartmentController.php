@@ -1,5 +1,6 @@
 <?php
 
+require_once APPPATH.'core/ProtectedController.php';
 class DepartmentController extends CI_Controller
 {
 
@@ -73,7 +74,7 @@ class DepartmentController extends CI_Controller
 		}
 	}
 
-	public function delete(int $id)
+	public function deleteDepartment($id)
 	{
 		$success = $this->Department->delete($id);
 		if ($success) {

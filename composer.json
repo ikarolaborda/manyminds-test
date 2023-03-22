@@ -14,7 +14,9 @@
 		"php": ">=7.4",
 		"ext-json": "*",
 		"ext-pdo": "*",
-		"zircote/swagger-php": "^4.7"
+		"zircote/swagger-php": "^4.7",
+		"firebase/php-jwt": "^6.4",
+		"chriskacerguis/codeigniter-restserver": "^3.1"
 	},
 
 	"suggest": {

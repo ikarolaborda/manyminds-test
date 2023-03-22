@@ -100,4 +100,24 @@ class User extends CI_Model implements UserModelInterface
 		$query = $this->db->query("DELETE FROM users WHERE id = ?", array($id));
 		return $this->db->affected_rows() > 0;
 	}
+
+	public function check_email($email) {
+		$this->db->where('email', $email);
+		$query = $this->db->get('users');
+		return $query->num_rows();
+	}
+	public function login($email, $password) {
+		$sql = "SELECT id, password FROM users WHERE email = :email";
+		$query = $this->pdo->prepare($sql);
+		$query->bindParam(':email', $email);
+		$query->execute();
+
+		if ($query->rowCount() == 1) {
+			$user = $query->fetch(PDO::FETCH_OBJ);
+			if (password_verify($password, $user->password)) {
+				return $user->id;
+			}
+		}
+		return false;
+	}
 }
