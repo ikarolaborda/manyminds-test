@@ -46,3 +46,8 @@ O API de registro e autenticação de usuários usa o método HTTP POST e retorn
 Para executar a aplicação, basta seguir os passos fornecidos acima. Certifique-se de editar o arquivo .env para corresponder às suas configurações de ambiente antes de iniciar a aplicação.
 
 Este aplicativo é apenas um exemplo simples e pode ser usado como ponto de partida para criar aplicativos mais complexos.
+
+### Débitos técnicos
+Ainda em fase experimental, a aplicação não possui testes automatizados.
+Possui endpoints para registro e autenticação de usuários, mas, por alguma razão, os tokens JWT não autenticam corretamente, mais investigações serão necessárias.
+Construir um sistema de logs para registrar erros e atividades.
