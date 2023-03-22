@@ -1,5 +1,6 @@
 <?php
 
+require_once APPPATH.'models/DepartmentModelInterface.php';
 class Department extends CI_Model implements DepartmentModelInterface
 {
 	protected PDO $pdo; // Caso estivessemos a usar o PHP 8+, poderíamos usar o constructor property promotion, sem precisar de declarar a variável $pdo
@@ -22,10 +23,10 @@ class Department extends CI_Model implements DepartmentModelInterface
 		return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function create($department): int
+    public function create($data): int
     {
-		$stmt = $this->pdo->prepare("INSERT INTO departments (name) VALUES (?)");
-		$stmt->execute([$department->name]);
+		$stmt = $this->pdo->prepare("INSERT INTO departments (name) VALUES (:name)");
+		$stmt->execute([':name' => $data['name']]);
 		return (int) $this->pdo->lastInsertId();
     }
 
