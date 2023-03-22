@@ -53,9 +53,17 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+/* Swagger docs */
+$route['docs'] = 'SwaggerController';
+
 /* Rotas de API - Usuarios */
 $route['users/create'] = 'UserController/create';
 $route['users/(:num)'] = 'UserController/read/$1';
 $route['users'] = 'UserController/read';
 $route['users/(:num)/update'] = 'UserController/update/$1';
 $route['users/(:num)/delete'] = 'UserController/delete/$1';
+
+/* Rotas de API - Departamentos */
+$route['departments/create'] = 'DepartmentController/create';
+$route['departments/(:num)'] = 'DepartmentController/read/$1';
+$route['departments'] = 'DepartmentController/read';
